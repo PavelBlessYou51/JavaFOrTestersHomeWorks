@@ -1,3 +1,5 @@
+package homework.lesson1;
+
 public class HwLesson1 {
     public class HomeWorkLesson1 {
         public static void main(String[] args) {
