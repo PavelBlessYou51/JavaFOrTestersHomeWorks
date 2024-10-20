@@ -8,7 +8,7 @@ public record Triangle(double a, double b, double c) {
         if (a < 0 || b < 0 || c < 0) {
             throw new IllegalArgumentException("The side of triangle should be non-negative!");
         }
-        if (a + b > c || a + c > b || c + b > a) {
+        if (a + b < c || a + c < b || c + b < a) {
             throw new IllegalArgumentException("The triangle does not exist!");
         }
 
