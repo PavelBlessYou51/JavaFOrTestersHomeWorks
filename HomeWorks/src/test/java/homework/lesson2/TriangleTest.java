@@ -39,4 +39,11 @@ public class TriangleTest {
         }
 
     }
+
+    @Test
+    void equalsTriangle() {
+        Triangle t1 = new Triangle(3,4,5);
+        Triangle t2 = new Triangle(5,3,4);
+        Assertions.assertEquals(t1, t2);
+    }
 }
