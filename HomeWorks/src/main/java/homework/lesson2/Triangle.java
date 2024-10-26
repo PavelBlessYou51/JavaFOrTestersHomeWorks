@@ -1,5 +1,7 @@
 package homework.lesson2;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Objects;
 
 import static java.lang.Math.sqrt;
@@ -31,7 +33,11 @@ public record Triangle(double a, double b, double c) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return (this.a + this.b + this.c) == (triangle.a + triangle.b + triangle.c);
+        double [] array1 = {this.a, this.b, this.c};
+        double [] array2 = {triangle.a, triangle.b, triangle.c};
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+        return Arrays.equals(array1, array2);
     }
 
     @Override
