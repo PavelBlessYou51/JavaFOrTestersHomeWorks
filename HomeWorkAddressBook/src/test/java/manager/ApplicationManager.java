@@ -9,6 +9,7 @@ public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
+    private RecordHelper records;
 
     public void init() {
         if (driver == null) {
@@ -33,6 +34,13 @@ public class ApplicationManager {
             groups = new GroupHelper(this);
         }
         return groups;
+    }
+
+    public RecordHelper records() {
+        if (records == null) {
+            records = new RecordHelper(this);
+        }
+        return records;
     }
 
     protected boolean isElementPresent(By element) {
