@@ -5,7 +5,6 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/HomeWorkAddressBook" />
-        <option name="gradleHome" value="" />
         <option name="gradleJvm" value="zulu-17" />
         <option name="modules">
           <set>
@@ -15,7 +14,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/HomeWorks" />
-        <option name="gradleHome" value="" />
         <option name="gradleJvm" value="zulu-17" />
         <option name="modules">
           <set>
