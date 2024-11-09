@@ -3,8 +3,10 @@ package tests;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RemoveGroupTests extends TestBase {
@@ -15,12 +17,12 @@ public class RemoveGroupTests extends TestBase {
         if (app.groups().getCount() == 0) {
             app.groups().createGroup(new GroupData());
         }
-        var oldGroups = app.groups().getList();
-        var rnd = new Random();
-        var index = rnd.nextInt(oldGroups.size());
+        List<GroupData> oldGroups = app.groups().getList();
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldGroups.size());
         app.groups().removeGroup(oldGroups.get(index));
-        var newGroups = app.groups().getList();
-        var expetedList = new ArrayList<>(oldGroups);
+        List<GroupData> newGroups = app.groups().getList();
+        ArrayList<GroupData> expetedList = new ArrayList<>(oldGroups);
         expetedList.remove(index);
         Assertions.assertEquals(newGroups, expetedList);
 

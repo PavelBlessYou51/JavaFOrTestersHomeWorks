@@ -40,9 +40,9 @@ public class CreateGroupTests extends TestBase {
     @ParameterizedTest
     @MethodSource("groupProvider")
     public void canCreateMultiplyGroups(GroupData group) {
-        ArrayList<GroupData> oldGroups = app.groups().getList();
+        List<GroupData> oldGroups = app.groups().getList();
         app.groups().createGroup(group);
-        ArrayList<GroupData> newGroups = app.groups().getList();
+        List<GroupData> newGroups = app.groups().getList();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
@@ -57,9 +57,9 @@ public class CreateGroupTests extends TestBase {
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
     public void canNotCreateGroup(GroupData group) {
-        ArrayList<GroupData> oldGroups = app.groups().getList();
+        List<GroupData> oldGroups = app.groups().getList();
         app.groups().createGroup(group);
-        ArrayList<GroupData> newGroups = app.groups().getList();
+        List<GroupData> newGroups = app.groups().getList();
         Assertions.assertEquals(newGroups, oldGroups);
     }
 

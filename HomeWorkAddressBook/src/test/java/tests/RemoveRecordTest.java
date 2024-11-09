@@ -22,7 +22,7 @@ public class RemoveRecordTest extends TestBase {
         ArrayList<RecordData> newRecords = app.records().getList();
         ArrayList<RecordData> expetedList = new ArrayList<>(oldRecords);
         expetedList.remove(index);
-        Assertions.assertNotEquals(newRecords, expetedList);
+        Assertions.assertEquals(newRecords, expetedList);
     }
 
     @Test
@@ -31,6 +31,6 @@ public class RemoveRecordTest extends TestBase {
             app.records().addNewRecord(new RecordData());
         }
         app.records().removeAllRecord();
-        Assertions.assertNotEquals(0, app.records().getRecordCounts());
+        Assertions.assertEquals(0, app.records().getRecordCounts());
     }
 }

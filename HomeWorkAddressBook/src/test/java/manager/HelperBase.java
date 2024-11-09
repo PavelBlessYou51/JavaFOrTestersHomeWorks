@@ -11,7 +11,7 @@ public class HelperBase {
     }
 
     protected void type(By locator, String text) {
-        manager.driver.findElement(locator);
+        manager.driver.findElement(locator).clear();
         manager.driver.findElement(locator).sendKeys(text);
     }
 

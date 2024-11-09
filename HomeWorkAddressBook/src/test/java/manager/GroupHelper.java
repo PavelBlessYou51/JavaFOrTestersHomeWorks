@@ -28,9 +28,9 @@ public class GroupHelper extends HelperBase {
         returnToGroupsPage();
     }
 
-    public void modifyGroup(GroupData modifiedGroup) {
+    public void modifyGroup(GroupData group, GroupData modifiedGroup) {
         openGroupsPage();
-        selectGroup(modifiedGroup);
+        selectGroup(group);
         initGroupModification();
         fillGroupForm(modifiedGroup);
         submitGroupModification();
@@ -92,13 +92,13 @@ public class GroupHelper extends HelperBase {
     }
 
 
-    public ArrayList<GroupData> getList() {
+    public List<GroupData> getList() {
         openGroupsPage();
         ArrayList<GroupData> groups = new ArrayList<>();
         List<WebElement> spans = manager.driver.findElements(By.cssSelector("span.group"));
         for (WebElement span : spans) {
             String name = span.getText();
-            WebElement checkbox = manager.driver.findElement(By.name("selected[]"));
+            WebElement checkbox = span.findElement(By.name("selected[]"));
             String id = checkbox.getAttribute("value");
             groups.add(new GroupData().withId(id).withName(name));
         }

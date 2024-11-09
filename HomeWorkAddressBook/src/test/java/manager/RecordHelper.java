@@ -36,6 +36,15 @@ public class RecordHelper extends HelperBase {
         return inputs.size();
     }
 
+    public void modifyRecord(RecordData record, RecordData modifiedRecord) {
+        selectRecord(record);
+        initRecordModification(record);
+        fillRecordForm(modifiedRecord);
+        submitGroupModification();
+        returnToHomePage();
+    }
+
+
     public ArrayList<RecordData> getList() {
         ArrayList<RecordData> records = new ArrayList<>();
         List<WebElement> inputs = manager.driver.findElements(By.cssSelector("input[name='selected[]']"));
@@ -57,6 +66,15 @@ public class RecordHelper extends HelperBase {
         click(By.cssSelector("input[value='Delete']"));
     }
 
+    private void submitGroupModification() {
+        click(By.cssSelector("input[value='Update']"));
+    }
+
+
+    private void initRecordModification(RecordData record) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s'", record.id())));
+    }
+
 
     private void selectRecord(RecordData record) {
         click(By.cssSelector(String.format("input[id='%s']", record.id())));
@@ -74,7 +92,6 @@ public class RecordHelper extends HelperBase {
     private void submitRecordCreation() {
         click(By.name("submit"));
     }
-
 
 
 }
