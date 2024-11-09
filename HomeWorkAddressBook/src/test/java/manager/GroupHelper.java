@@ -33,6 +33,14 @@ public class GroupHelper extends HelperBase {
         returnToGroupsPage();
     }
 
+//    public ArrayList<GroupData> getList() {
+//        openGroupsPage();
+//        ArrayList<GroupData> groups = new ArrayList<>();
+//        List<WebElement> spans = manager.driver.findElements(By.cssSelector("span[class='group']"));
+//
+//
+//    }
+
 
     public boolean isGroupPresent() {
         openGroupsPage();

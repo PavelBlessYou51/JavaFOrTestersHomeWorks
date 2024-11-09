@@ -5,7 +5,6 @@
     <content url="file://$MODULE_DIR$/HomeWorkAddressBook">
       <excludeFolder url="file://$MODULE_DIR$/HomeWorkAddressBook/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/HomeWorkAddressBook/build" />
-      <excludeFolder url="file://$MODULE_DIR$/HomeWorkAddressBook/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
