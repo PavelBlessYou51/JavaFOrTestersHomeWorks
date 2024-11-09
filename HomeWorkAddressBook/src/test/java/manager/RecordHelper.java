@@ -2,6 +2,10 @@ package manager;
 
 import model.RecordData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecordHelper extends HelperBase {
 
@@ -17,17 +21,45 @@ public class RecordHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void removeRecord() {
-        selectRecord();
+    public void removeRecord(RecordData record) {
+        selectRecord(record);
         submitRecordRemove();
+    }
+
+    public void removeAllRecord() {
+        click(By.id("MassCB"));
+        submitRecordRemove();
+    }
+
+    public int getRecordCounts() {
+        List<WebElement> inputs = manager.driver.findElements(By.cssSelector("input[name='selected[]']"));
+        return inputs.size();
+    }
+
+    public ArrayList<RecordData> getList() {
+        ArrayList<RecordData> records = new ArrayList<>();
+        List<WebElement> inputs = manager.driver.findElements(By.cssSelector("input[name='selected[]']"));
+        for (WebElement input : inputs) {
+            String id = input.getAttribute("value");
+            String title = input.getAttribute("title");
+            String fullName = title.substring(title.indexOf('(') + 1, title.indexOf(')'));
+            String[] firstAndLastName = fullName.split(" ", 2);
+            records.add(new RecordData().withId(id).withLastName(firstAndLastName[1]).withFirstName(firstAndLastName[0]));
+        }
+        return records;
+    }
+
+    public void returnToHomePage() {
+        click(By.xpath("//a[contains(text(), 'home')]"));
     }
 
     private void submitRecordRemove() {
         click(By.cssSelector("input[value='Delete']"));
     }
 
-    private void selectRecord() {
-        click(By.name("selected[]"));
+
+    private void selectRecord(RecordData record) {
+        click(By.cssSelector(String.format("input[id='%s']", record.id())));
     }
 
     private void initRecordCreation() {
@@ -43,13 +75,6 @@ public class RecordHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    private void returnToHomePage() {
-        click(By.linkText("home page"));
-    }
-
-    public boolean isRecordPresent(By locator) {
-        return manager.isElementPresent(locator);
-    }
 
 
 }

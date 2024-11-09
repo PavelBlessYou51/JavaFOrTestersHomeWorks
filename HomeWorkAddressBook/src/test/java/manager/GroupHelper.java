@@ -2,6 +2,10 @@ package manager;
 
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupHelper extends HelperBase {
 
@@ -17,20 +21,37 @@ public class GroupHelper extends HelperBase {
         returnToGroupsPage();
     }
 
-    public void removeGroup() {
+    public void removeGroup(GroupData group) {
         openGroupsPage();
-        selectGroup();
+        selectGroup(group);
         removeSelectedGroup();
         returnToGroupsPage();
     }
 
     public void modifyGroup(GroupData modifiedGroup) {
         openGroupsPage();
-        selectGroup();
+        selectGroup(modifiedGroup);
         initGroupModification();
         fillGroupForm(modifiedGroup);
         submitGroupModification();
         returnToGroupsPage();
+    }
+
+    public void removeAllGroups() {
+        openGroupsPage();
+        selectAllGroups();
+        removeSelectedGroups();
+    }
+
+    private void selectAllGroups() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
+
+    private void removeSelectedGroups() {
+        click(By.name("delete"));
     }
 
 //    public ArrayList<GroupData> getList() {
@@ -46,6 +67,12 @@ public class GroupHelper extends HelperBase {
         openGroupsPage();
         return manager.isElementPresent(By.name("selected[]"));
     }
+
+    public int getCount() {
+        openGroupsPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
 
 
     private void fillGroupForm(GroupData group) {
@@ -64,6 +91,20 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
+
+    public ArrayList<GroupData> getList() {
+        openGroupsPage();
+        ArrayList<GroupData> groups = new ArrayList<>();
+        List<WebElement> spans = manager.driver.findElements(By.cssSelector("span.group"));
+        for (WebElement span : spans) {
+            String name = span.getText();
+            WebElement checkbox = manager.driver.findElement(By.name("selected[]"));
+            String id = checkbox.getAttribute("value");
+            groups.add(new GroupData().withId(id).withName(name));
+        }
+        return groups;
+    }
+
     private void submitGroupCreation() {
         click(By.name("submit"));
     }
@@ -72,8 +113,8 @@ public class GroupHelper extends HelperBase {
         click(By.linkText("group page"));
     }
 
-    private void selectGroup() {
-        click(By.name("selected[]"));
+    private void selectGroup(GroupData group) {
+        click(By.cssSelector(String.format("input[value='%s']", group.id())));
     }
 
     private void removeSelectedGroup() {
