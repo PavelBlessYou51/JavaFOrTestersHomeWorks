@@ -47,13 +47,12 @@ public class RecordHelper extends HelperBase {
 
     public ArrayList<RecordData> getList() {
         ArrayList<RecordData> records = new ArrayList<>();
-        List<WebElement> inputs = manager.driver.findElements(By.cssSelector("input[name='selected[]']"));
-        for (WebElement input : inputs) {
-            String id = input.getAttribute("value");
-            String title = input.getAttribute("title");
-            String fullName = title.substring(title.indexOf('(') + 1, title.indexOf(')'));
-            String[] firstAndLastName = fullName.split(" ", 2);
-            records.add(new RecordData().withId(id).withLastName(firstAndLastName[1]).withFirstName(firstAndLastName[0]));
+        List<WebElement> strings = manager.driver.findElements(By.cssSelector("tr[name='entry']"));
+        for (WebElement string : strings) {
+            String id = string.findElement(By.name("selected[]")).getAttribute("value");
+            String lastName = string.findElement(By.xpath("//tr[@name='entry']/td[2] ")).getText();
+            String firstName = string.findElement(By.xpath("//tr[@name='entry']/td[3] ")).getText();
+            records.add(new RecordData().withId(id).withLastName(lastName).withFirstName(firstName));
         }
         return records;
     }

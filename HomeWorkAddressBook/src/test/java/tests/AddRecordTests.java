@@ -39,6 +39,5 @@ public class AddRecordTests extends TestBase {
         expectedList.sort(compareById);
         Assertions.assertEquals(newRecords, expectedList);
 
-        app.records().addNewRecord(record);
     }
 }
