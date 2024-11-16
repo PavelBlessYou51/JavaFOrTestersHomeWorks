@@ -50,8 +50,8 @@ public class RecordHelper extends HelperBase {
         List<WebElement> strings = manager.driver.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement string : strings) {
             String id = string.findElement(By.name("selected[]")).getAttribute("value");
-            String lastName = string.findElement(By.xpath("//tr[@name='entry']/td[2] ")).getText();
-            String firstName = string.findElement(By.xpath("//tr[@name='entry']/td[3] ")).getText();
+            String lastName = string.findElement(By.xpath(".//td[2] ")).getText();
+            String firstName = string.findElement(By.xpath(".//td[3] ")).getText();
             records.add(new RecordData().withId(id).withLastName(lastName).withFirstName(firstName));
         }
         return records;
