@@ -86,6 +86,7 @@ public class RecordHelper extends HelperBase {
     private void fillRecordForm(RecordData record) {
         type(By.name("firstname"), record.firstName());
         type(By.name("lastname"), record.lastName());
+        attach(By.name("photo"), record.photo());;
     }
 
     private void submitRecordCreation() {

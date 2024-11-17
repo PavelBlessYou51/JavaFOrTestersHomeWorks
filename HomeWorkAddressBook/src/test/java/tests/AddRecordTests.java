@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.RecordData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,8 +16,9 @@ public class AddRecordTests extends TestBase {
         ArrayList<RecordData> records = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             records.add(new RecordData()
-                    .withFirstName(randomString(i * 10))
-                    .withLastName(randomString(i * 10))
+                    .withFirstName(CommonFunctions.randomString(i * 10))
+                    .withLastName(CommonFunctions.randomString(i * 10))
+                    .withPhoto(randomFile("src/test/resources/images"))
             );
         }
         return records;
@@ -35,7 +37,7 @@ public class AddRecordTests extends TestBase {
         newRecords.sort(compareById);
         ArrayList<RecordData> expectedList = new ArrayList<>(oldRecords);
         RecordData recordToAdd = newRecords.get(newRecords.size() - 1);
-        expectedList.add(record.withId(recordToAdd.id()).withLastName(recordToAdd.lastName()).withFirstName(recordToAdd.firstName()));
+        expectedList.add(record.withId(recordToAdd.id()).withLastName(recordToAdd.lastName()).withFirstName(recordToAdd.firstName()).withPhoto(recordToAdd.photo()));
         expectedList.sort(compareById);
         Assertions.assertEquals(newRecords, expectedList);
 

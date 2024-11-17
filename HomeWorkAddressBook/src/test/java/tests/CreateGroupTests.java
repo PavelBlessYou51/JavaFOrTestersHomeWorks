@@ -1,10 +1,14 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,7 +16,7 @@ import java.util.List;
 public class CreateGroupTests extends TestBase {
 
 
-    public static List<GroupData> groupProvider() {
+    public static List<GroupData> groupProvider() throws IOException {
         ArrayList<GroupData> groups = new ArrayList<>();
         for (String name : List.of("", "group_name")) {
             for (String header : List.of("", "group_header")) {
@@ -21,13 +25,21 @@ public class CreateGroupTests extends TestBase {
                 }
             }
         }
-        for (int i = 0; i < 5; i++) {
-            groups.add(new GroupData()
-                    .withName(randomString(i * 10))
-                    .withHeader(randomString(i * 10))
-                    .withFooter(randomString(i * 10))
-            );
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<GroupData> value;
+        //        ObjectMapper mapper = new YAMLMapper();
+        //        XmlMapper mapper = new XmlMapper();
+        if (new File("HomeWorkAddressBook/group.json").exists()) {
+            //        String json = Files.readString((Paths.get("group.json")));
+            value = mapper.readValue(new File("group.json"), new TypeReference<ArrayList<GroupData>>() {
+            }); // можно заменить кодом выше, передав json
+            //        ArrayList<GroupData> value = mapper.readValue(new File("group.yaml"), new TypeReference<ArrayList<GroupData>>() {});
+            //        ArrayList<GroupData> value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {});
+        } else {
+            value = mapper.readValue(new File("records.json"), new TypeReference<ArrayList<GroupData>>() {
+            });
         }
+        groups.addAll(value);
         return groups;
     }
 
