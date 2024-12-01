@@ -35,4 +35,19 @@ public class JdbcHelper extends HelperBase {
 
 
     }
+
+    public void checkConsistency() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+             Statement statment = connection.createStatement();
+             ResultSet result = statment.executeQuery(
+                     "SELECT * FROM `address_in_groups` ag LEFT JOIN addressbook ab ON ab.id = ag.id WHERE ab.id IS NULL");)
+        {
+            if (result.next()) {
+                throw new IllegalStateException("DB is corrapted!");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
