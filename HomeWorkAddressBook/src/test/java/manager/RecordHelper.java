@@ -108,5 +108,15 @@ public class RecordHelper extends HelperBase {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
 
     }
+
+    public void removeContact(RecordData record, GroupData group) {
+        selectContactGroup(group);
+        click(By.id(record.id()));
+        click(By.cssSelector("input[value='Delete']"));
+    }
+
+    private void selectContactGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
 }
 

@@ -27,8 +27,6 @@ public class AddRecordTests extends TestBase {
     }
 
 
-
-
     @ParameterizedTest
     @MethodSource("recordProvider")
     public void canCreateMultiplyRecord(RecordData record) {
@@ -65,3 +63,5 @@ public class AddRecordTests extends TestBase {
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
 }
+
+
