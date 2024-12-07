@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.nio.file.Paths;
+import java.util.Random;
 
 public class HelperBase {
     protected final ApplicationManager manager;
@@ -25,4 +26,9 @@ public class HelperBase {
         manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
     }
 
+
+    protected int getRandomInt(int ceil) {
+        Random rand = new Random();
+        return rand.nextInt(ceil);
+    }
 }

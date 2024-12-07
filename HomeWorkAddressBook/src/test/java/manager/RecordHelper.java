@@ -118,5 +118,18 @@ public class RecordHelper extends HelperBase {
     private void selectContactGroup(GroupData group) {
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
+
+    public void selectRandomRecord(List<RecordData> records) {
+        RecordData randomRecord = records.get(getRandomInt(records.size() - 1));
+        selectRecord(randomRecord);
+
+    }
+
+    public void addRecordToGroup() {
+        click(By.cssSelector("input[name='add']"));
+
+    }
+
+
 }
 

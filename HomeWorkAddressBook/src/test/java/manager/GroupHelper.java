@@ -3,6 +3,7 @@ package manager;
 import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,5 +135,12 @@ public class GroupHelper extends HelperBase {
 
     private void submitGroupModification() {
         click(By.name("update"));
+    }
+
+    public GroupData selectRandomGroup(List<GroupData> groups) {
+        GroupData randomGroup = groups.get(getRandomInt(groups.size() - 1));
+        Select toGroup = new Select(manager.driver.findElement(By.cssSelector("select[name='to_group']")));
+        toGroup.selectByValue(randomGroup.id());
+        return randomGroup;
     }
 }

@@ -62,6 +62,27 @@ public class AddRecordTests extends TestBase {
         var newRelated = app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
+
+    @Test
+    void AddRecordInGroup() {
+        RecordData record = new RecordData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/images"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        List<RecordData> contacts = app.hbm().getContactList();
+        app.records().selectRandomRecord(contacts);
+        List<GroupData> groups = app.hbm().getGroupList();
+        var groupToAdd = app.groups().selectRandomGroup(groups);
+        var oldRelated = app.hbm().getContactsInGroup(groupToAdd);
+        app.records().addRecordToGroup();
+        var newRelated = app.hbm().getContactsInGroup(groupToAdd);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+    }
+
+
 }
 
 
