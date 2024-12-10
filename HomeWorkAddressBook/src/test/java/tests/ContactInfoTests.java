@@ -11,33 +11,11 @@ public class ContactInfoTests extends TestBase{
     @Test
     void testPhones() {
         var contacts = app.hbm().getContactList();
-        var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact -> Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getSecondary())
+        var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact -> Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getSecondary(), contact.getEmail1(), contact.getEmail2(), contact.getEmail3(), contact.address())
                 .filter(s -> s != null && !"".equals(s))
                 .collect(Collectors.joining("\n"))));
-        var phones = app.records().getPhones();
+        var phones = app.records().getContactData();
         Assertions.assertEquals(expected, phones);
-
-    }
-
-    @Test
-    void testEmails() {
-        var contacts = app.hbm().getContactList();
-        var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact -> Stream.of(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
-                .filter(s -> s != null && !"".equals(s))
-                .collect(Collectors.joining("\n"))));
-        var emails = app.records().getEmails();
-        Assertions.assertEquals(expected, emails);
-
-    }
-
-    @Test
-    void testAddress() {
-        var contacts = app.hbm().getContactList();
-        var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact -> Stream.of(contact.address())
-                .filter(s -> s != null && !"".equals(s))
-                .collect(Collectors.joining("\n"))));
-        var addreses = app.records().getAddress();
-        Assertions.assertEquals(expected, addreses);
 
     }
 

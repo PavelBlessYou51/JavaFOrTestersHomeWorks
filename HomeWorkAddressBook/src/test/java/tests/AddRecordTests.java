@@ -65,10 +65,13 @@ public class AddRecordTests extends TestBase {
 
     @Test
     void AddRecordInGroup() {
-        RecordData record = new RecordData()
-                .withFirstName(CommonFunctions.randomString(10))
-                .withLastName(CommonFunctions.randomString(10))
-                .withPhoto(randomFile("src/test/resources/images"));
+        if (app.hbm().getContactCount() == 0) {
+            RecordData record = new RecordData()
+                    .withFirstName(CommonFunctions.randomString(10))
+                    .withLastName(CommonFunctions.randomString(10))
+                    .withPhoto(randomFile("src/test/resources/images"));
+            app.records().addNewRecord(record);
+        }
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
