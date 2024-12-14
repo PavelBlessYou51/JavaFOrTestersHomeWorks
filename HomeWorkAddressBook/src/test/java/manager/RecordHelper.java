@@ -132,15 +132,13 @@ public class RecordHelper extends HelperBase {
 
     }
 
-    public Map<String, String> getContactData() {
+    public Map<String, String> getContactPhones() {
         var result = new HashMap<String, String>();
         List<WebElement> rows = manager.driver.findElements(By.name("entry"));
         for (WebElement row : rows) {
             var id = row.findElement(By.tagName("input")).getAttribute("id");
             var phones = row.findElements(By.tagName("td")).get(5).getText();
-            var emails = row.findElements(By.tagName("td")).get(4).getText();
-            var address = row.findElements(By.tagName("td")).get(3).getText();
-            result.put(id, (phones + "\n" + emails + "\n" + address).strip());
+            result.put(id, phones);
         }
         return result;
     }

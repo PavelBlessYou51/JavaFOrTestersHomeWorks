@@ -138,7 +138,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public GroupData selectRandomGroup(List<GroupData> groups) {
-        GroupData randomGroup = groups.get(getRandomInt(groups.size() - 1));
+        GroupData randomGroup = groups.get(getRandomInt(groups.size()));
         Select toGroup = new Select(manager.driver.findElement(By.cssSelector("select[name='to_group']")));
         toGroup.selectByValue(randomGroup.id());
         return randomGroup;
