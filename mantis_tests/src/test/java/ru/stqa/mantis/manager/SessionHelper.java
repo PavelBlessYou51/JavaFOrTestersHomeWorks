@@ -18,4 +18,21 @@ public class SessionHelper extends HelperBase {
         return isElementPresent(By.cssSelector("span.user-info"));
     }
 
+    public void createNewAcc(String username, String email) {
+        click(By.cssSelector("a[class='back-to-login-link pull-left']"));
+        type(By.id("username"), username);
+        type(By.id("email-field"), email);
+        click(By.cssSelector("input[type='submit']"));
+    }
+
+    public void proceed() {
+        click(By.cssSelector("a[href='login_page.php']"));
+    }
+
+    public void changePass(String username, String password) {
+        type(By.id("realname"), username);
+        type(By.id("password"), password);
+        type(By.id("password-confirm"), password);
+        click(By.cssSelector("button[type='submit']"));
+    }
 }
