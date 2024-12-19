@@ -1,6 +1,7 @@
 package manager;
 
 import model.GroupData;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -138,6 +139,9 @@ public class GroupHelper extends HelperBase {
     }
 
     public GroupData selectRandomGroup(List<GroupData> groups) {
+        manager.driver.navigate().refresh();
+        Alert alert = manager.driver.switchTo().alert();
+        alert.accept();
         GroupData randomGroup = groups.get(getRandomInt(groups.size()));
         Select toGroup = new Select(manager.driver.findElement(By.cssSelector("select[name='to_group']")));
         toGroup.selectByValue(randomGroup.id());
