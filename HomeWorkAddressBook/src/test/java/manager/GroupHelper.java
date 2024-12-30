@@ -76,7 +76,6 @@ public class GroupHelper extends HelperBase {
     }
 
 
-
     private void fillGroupForm(GroupData group) {
         type(By.name("group_name"), group.name());
         type(By.name("group_header"), group.header());
@@ -139,12 +138,25 @@ public class GroupHelper extends HelperBase {
     }
 
     public GroupData selectRandomGroup(List<GroupData> groups) {
-        manager.driver.navigate().refresh();
-        Alert alert = manager.driver.switchTo().alert();
-        alert.accept();
+//        manager.driver.navigate().refresh();
+//        Alert alert = manager.driver.switchTo().alert();
+//        alert.accept();
         GroupData randomGroup = groups.get(getRandomInt(groups.size()));
         Select toGroup = new Select(manager.driver.findElement(By.cssSelector("select[name='to_group']")));
         toGroup.selectByValue(randomGroup.id());
         return randomGroup;
+    }
+
+    public List<WebElement> getContactsWithoutGroup() {
+        showContactsWithoutGroup();
+        List<WebElement> contactsList = manager.driver.findElements(By.name("selected[]"));
+        return contactsList;
+
+
+    }
+
+    public void showContactsWithoutGroup() {
+        Select typeContacts = new Select(manager.driver.findElement(By.cssSelector("select[name='group']")));
+        typeContacts.selectByValue("[none]");
     }
 }

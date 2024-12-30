@@ -3,6 +3,7 @@ package tests;
 import manager.ApplicationManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 
 import java.io.File;
 import java.io.FileNotFoundException;

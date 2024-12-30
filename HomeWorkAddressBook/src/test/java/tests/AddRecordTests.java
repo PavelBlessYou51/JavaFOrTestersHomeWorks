@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -65,7 +66,7 @@ public class AddRecordTests extends TestBase {
 
     @Test
     void AddRecordInGroup() {
-        if (app.hbm().getContactCount() == 0) {
+        if (app.groups().getContactsWithoutGroup().isEmpty() == true) {
             RecordData record = new RecordData()
                     .withFirstName(CommonFunctions.randomString(10))
                     .withLastName(CommonFunctions.randomString(10))
@@ -75,7 +76,8 @@ public class AddRecordTests extends TestBase {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
-        List<RecordData> contacts = app.hbm().getContactList();
+        app.groups().showContactsWithoutGroup();
+        List<WebElement> contacts = app.groups().getContactsWithoutGroup();
         app.records().selectRandomRecord(contacts);
         List<GroupData> groups = app.hbm().getGroupList();
         var groupToAdd = app.groups().selectRandomGroup(groups);

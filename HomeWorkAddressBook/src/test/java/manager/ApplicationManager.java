@@ -27,7 +27,7 @@ public class ApplicationManager {
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
-//            Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
+            Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get(properties.getProperty("web.url"));
             driver.manage().window().fullscreen();
             session().login(properties.getProperty("web.login"), properties.getProperty("web.password"));

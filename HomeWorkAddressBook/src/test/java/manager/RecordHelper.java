@@ -121,9 +121,9 @@ public class RecordHelper extends HelperBase {
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
-    public void selectRandomRecord(List<RecordData> records) {
-        RecordData randomRecord = records.get(getRandomInt(records.size()));
-        selectRecord(randomRecord);
+    public void selectRandomRecord(List<WebElement> records) {
+        WebElement randomRecord = records.get(getRandomInt(records.size()));
+        randomRecord.click();
 
     }
 
