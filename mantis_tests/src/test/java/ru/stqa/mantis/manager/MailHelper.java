@@ -97,4 +97,15 @@ public class MailHelper extends HelperBase {
         System.out.println(url);
         return url;
     }
+
+    public String getUrlFromDeveloperMail(String message) {
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(message);
+        var url = "Url has not been found";
+        if (matcher.find()) {
+            url = message.substring(matcher.start(), matcher.end());
+        }
+        System.out.println(url);
+        return url;
+    }
 }
