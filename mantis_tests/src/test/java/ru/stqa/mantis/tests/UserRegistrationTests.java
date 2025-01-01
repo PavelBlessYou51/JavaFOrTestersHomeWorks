@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.DeveloperMailUser;
+import ru.stqa.mantis.model.IssueData;
 
 import java.time.Duration;
 import java.util.stream.Stream;
@@ -34,6 +35,20 @@ public class UserRegistrationTests extends TestBase{
         app.http().login(username, "password");
         Assertions.assertTrue(app.http().isLoggedIn());
 
+    }
+
+    @Test
+    void canRegisterUserWithAPI() {
+        var password = "password";
+        user = app.developerMail().addUser();
+        var email = String.format("%s@developermail.com", user.name());
+        app.rest().registerUser(password, email, user.name());
+        var messange = app.developerMail().receive(user, Duration.ofSeconds(10));
+        var url = app.mail().getUrlFromDeveloperMail(messange);
+        app.driver().get(url);
+        app.session().changePass(user.name(), password);
+        app.http().login(user.name(), password);
+        Assertions.assertTrue(app.http().isLoggedIn());
     }
 
 }
