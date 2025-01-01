@@ -1,5 +1,6 @@
 package ru.stqa.mantis.manager;
 
+import org.apache.axis.soap.SOAP11Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,6 +19,7 @@ public class ApplicationManager {
     private JamesAPIHelper jamesAPIHelper;
     private DeveloperMailHelper developerMailHelper;
     private RestAPIHelper restAPIHelper;
+    private SoapAPIHelper soapAPIHelper;
 
     public void init(String browser, Properties properties) {
         this.properties = properties;
@@ -89,6 +91,13 @@ public class ApplicationManager {
             restAPIHelper = new RestAPIHelper(this);
         }
         return restAPIHelper;
+    }
+
+    public SoapAPIHelper soap() {
+        if (soapAPIHelper == null) {
+            soapAPIHelper = new SoapAPIHelper(this);
+        }
+        return soapAPIHelper;
     }
 
 
